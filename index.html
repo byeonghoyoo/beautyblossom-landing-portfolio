@@ -1,0 +1,28 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>뷰티블라썸 이벤트 랜딩 포트폴리오</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#16161a;color:#eee;font-family:'Pretendard','Noto Sans KR',system-ui,sans-serif}
+header{padding:28px 20px 12px;text-align:center}header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:#9a9aa5;font-size:14px}
+nav{position:sticky;top:0;z-index:10;background:#16161aee;backdrop-filter:blur(8px);display:flex;gap:6px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid #2a2a31;justify-content:center;flex-wrap:wrap}
+nav button{flex:none;border:1px solid #33333b;background:#1f1f25;color:#cfcfd8;padding:8px 14px;border-radius:999px;font-size:14px;cursor:pointer}
+nav button.on{background:#fff;color:#111;border-color:#fff;font-weight:700}
+main{max-width:1080px;margin:0 auto;padding:16px 0 60px}
+.bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:6px 16px 14px}
+.bar h2{margin:0;font-size:18px}.bar span{color:#9a9aa5;font-size:13px;margin-left:8px;font-weight:400}
+.bar a{color:#111;background:#fff;text-decoration:none;padding:7px 12px;border-radius:8px;font-size:13px;margin-left:6px}
+.pages{background:#fff;line-height:0}.pages img{width:100%;display:block}
+</style></head><body>
+<header><h1>뷰티블라썸의원 이벤트 랜딩 포트폴리오</h1><p>10개 이벤트 · 탭을 눌러 전환 · PSD/PNG 다운로드 가능</p></header>
+<nav id="tabs"></nav><main><div class="bar"><h2 id="t"></h2><div id="dl"></div></div><div class="pages" id="pg"></div></main>
+<script>
+const P=[{"id":"01","title":"고우리 런칭","theme":"스카이 블루","count":6},{"id":"02","title":"힐로웨이브","theme":"아쿠아 · 코발트","count":4},{"id":"03","title":"올타이트 리프팅","theme":"라일락 에디토리얼","count":4},{"id":"04","title":"포트라","theme":"딥그린 · 골드","count":9},{"id":"05","title":"슬림라인","theme":"코랄 파스텔 카드","count":7},{"id":"06","title":"싸이모신","theme":"민트 틸","count":5},{"id":"07","title":"유지인대 리프팅","theme":"네이비 · 샴페인 골드","count":4},{"id":"08","title":"슬림어깨","theme":"더스티 로즈","count":4},{"id":"09","title":"퍼스트블라썸","theme":"체리블라썸 핑크","count":4},{"id":"10","title":"원데이 마스터솔루션","theme":"블랙 · 골드","count":7}];
+const nav=document.getElementById('tabs');
+function show(id,push){const p=P.find(x=>x.id===id)||P[0];
+ [...nav.children].forEach(b=>b.classList.toggle('on',b.dataset.id===p.id));
+ document.getElementById('t').innerHTML=p.id+'. '+p.title+'<span>'+p.theme+'</span>';
+ document.getElementById('dl').innerHTML='<a href="p'+p.id+'/landing.psd" download>PSD</a><a href="p'+p.id+'/full.png" target="_blank">전체 PNG</a>';
+ document.getElementById('pg').innerHTML=Array.from({length:p.count},(_,i)=>'<img loading="lazy" src="p'+p.id+'/s'+(i+1)+'.jpg" alt="">').join('');
+ if(push)history.replaceState(null,'','#'+p.id);window.scrollTo({top:0});}
+P.forEach(p=>{const b=document.createElement('button');b.dataset.id=p.id;b.textContent=p.id+' '+p.title;b.onclick=()=>show(p.id,true);nav.appendChild(b)});
+show(location.hash.slice(1)||'01');
+</script></body></html>
